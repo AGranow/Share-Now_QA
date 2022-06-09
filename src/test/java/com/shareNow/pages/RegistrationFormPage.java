@@ -1,4 +1,4 @@
-package com.shareNow.pageobject;
+package com.shareNow.pages;
 
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
@@ -7,7 +7,15 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationFormPage {
 
-    private final SelenideElement countrySelectionButton = $(By.xpath("//option[@value = 'DE']"));
+    private final  String countrySelectionButtonLocator = "//option[@value = '%s']";
+
+
+private SelenideElement method (String locator, String volume){
+    String resLocator = String.format(locator,volume);
+    return $(By.xpath(resLocator));
+}
+
+    private final SelenideElement countrySelectionButton = $(By.xpath("//option[@value = '%s']"));
     private final SelenideElement citySelectionButton = $(By.xpath("//option[contains(text(),'Ulm')]"));
     private final SelenideElement languageSelectionButton = $(By.xpath("//option[contains(text(),'Deutsch')]"));
     private final SelenideElement emailInput = $(By.xpath("//input[@name='email']"));
@@ -29,8 +37,18 @@ public class RegistrationFormPage {
     private final SelenideElement promotionCodeInput = $(By.xpath("//input[@name='promotionCode']"));
 
 
-    public void countrySelectionButtonClick() {
-        countrySelectionButton.click();
+    SelenideElement locatorBuilderString (String locator,String value){
+        return $(By.xpath(String.format(locator, value)));
+    }
+
+    SelenideElement locatorBuilderInt (String locator,int value){
+        return $(By.xpath(String.format(locator, value)));
+    }
+
+
+
+    public void countrySelectionButtonClick(String country) {
+      locatorBuilderString(countrySelectionButtonLocator, country).click();
     }
 
     public void citySelectionButtonClick() {
@@ -57,16 +75,17 @@ public class RegistrationFormPage {
         titleInput.click();
     }
 
-    public void firstNameInput() {
-        firstNameInput.sendKeys("Jonn");
+    public void firstNameInput(String firstName) {
+        firstNameInput.sendKeys(firstName);
     }
 
-    public void lastNameInput() {
-        lastNameInput.sendKeys("Smitt");
+    public void lastNameInput(String lastName) {
+        lastNameInput.sendKeys(lastName);
     }
 
     public void birthDateDaySelect() {
         birthDateDaySelect.click();
+
     }
 
     public void birthDateMonthSelect() {

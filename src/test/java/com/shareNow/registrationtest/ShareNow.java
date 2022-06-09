@@ -1,14 +1,14 @@
 package com.shareNow.registrationtest;
 
 import com.codeborne.selenide.Configuration;
-import com.shareNow.pageobject.HomePage;
-import com.shareNow.pageobject.RegistrationFormPage;
+import com.shareNow.pages.HomePage;
+import com.shareNow.pages.RegistrationFormPage;
 import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import static com.codeborne.selenide.Selenide.*;
 
-public class ShareNowSelenide {
+public class ShareNow {
 
     HomePage homePage = new HomePage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
@@ -21,16 +21,16 @@ public class ShareNowSelenide {
 
         homePage.regButtonClick();
 
+        registrationFormPage.countrySelectionButtonClick("DE");
         registrationFormPage.citySelectionButtonClick();
-        registrationFormPage.countrySelectionButtonClick();
         registrationFormPage.languageSelectionButtonClick();
         registrationFormPage.emailInputPositive();
         registrationFormPage.passwordInputPositive();
         registrationFormPage.pinInputPositive();
 
         registrationFormPage.titleInputSelect();
-        registrationFormPage.firstNameInput();
-        registrationFormPage.lastNameInput();
+        registrationFormPage.firstNameInput("Jonn");
+        registrationFormPage.lastNameInput("Smitt");
         registrationFormPage.birthDateDaySelect();
         registrationFormPage.birthDateMonthSelect();
         registrationFormPage.birthYearSelect();
