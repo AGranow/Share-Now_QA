@@ -7,124 +7,86 @@ import static com.codeborne.selenide.Selenide.$;
 
 public class RegistrationFormPage {
 
-    private final  String countrySelectionButtonLocator = "//option[@value = '%s']";
-
-
-private SelenideElement method (String locator, String volume){
-    String resLocator = String.format(locator,volume);
-    return $(By.xpath(resLocator));
-}
-
-    private final SelenideElement countrySelectionButton = $(By.xpath("//option[@value = '%s']"));
-    private final SelenideElement citySelectionButton = $(By.xpath("//option[contains(text(),'Ulm')]"));
-    private final SelenideElement languageSelectionButton = $(By.xpath("//option[contains(text(),'Deutsch')]"));
-    private final SelenideElement emailInput = $(By.xpath("//input[@name='email']"));
-    private final SelenideElement passwordInput = $(By.xpath("//input[@name='password']"));
-    private final SelenideElement pinInput = $(By.xpath("//input[@name='pin']"));
-    private final SelenideElement titleInput = $(By.xpath("//select[@name='salutation']/option[2]"));
-    private final SelenideElement firstNameInput = $(By.xpath("//input[@name='firstName']"));
-    private final SelenideElement lastNameInput = $(By.xpath("//input[@name='lastName']"));
-    private final SelenideElement birthDateDaySelect = $(By.xpath("//select[@id = 'camelot-select-birth-date-day']/option[18]"));
-    private final SelenideElement birthDateMonthSelect = $(By.xpath("//option[contains(text(),'March')]"));
-    private final SelenideElement birthDateYearSelect = $(By.xpath("//option[contains(text(),'1973')]"));
-    private final SelenideElement birthPlaceSelect = $(By.xpath("//input[@name='birthPlace']"));
-    private final SelenideElement addressStreetInput = $(By.xpath("//input[@name='addressStreet']"));
-    private final SelenideElement addressAdditionalStreetInput = $(By.xpath("//input[@name='addressAdditionalStreet']"));
-    private final SelenideElement addressZipCodeInput = $(By.xpath("//input[@name='addressZipCode']"));
-    private final SelenideElement addressCityInput = $(By.xpath("//input[@name='addressCity']"));
-    private final SelenideElement countryCodInput = $(By.xpath("//option[contains(text(),'+34')]"));
-    private final SelenideElement mobilePhoneInput = $(By.xpath("//input[@name='mobilePhone']"));
-    private final SelenideElement promotionCodeInput = $(By.xpath("//input[@name='promotionCode']"));
-
-
-    SelenideElement locatorBuilderString (String locator,String value){
-        return $(By.xpath(String.format(locator, value)));
+    public SelenideElement getCountrySelectionButton(String country) {
+        return $(By.xpath(String.format("//option[@value = '%s']", country)));
     }
 
-    SelenideElement locatorBuilderInt (String locator,int value){
-        return $(By.xpath(String.format(locator, value)));
+    public SelenideElement getCitySelectionButton(String city) {
+        return $(By.xpath(String.format("//option[contains(text(),'%s')]", city)));
     }
 
-
-
-    public void countrySelectionButtonClick(String country) {
-      locatorBuilderString(countrySelectionButtonLocator, country).click();
+    public SelenideElement getLanguageSelectionButton(String language) {
+        return $(By.xpath(String.format("//option[contains(text(),'%s')]", language)));
     }
 
-    public void citySelectionButtonClick() {
-        citySelectionButton.click();
+    public SelenideElement getEmailInput(String email) {
+        return $(By.xpath(String.format("//input[@name='email']", email)));
     }
 
-    public void languageSelectionButtonClick() {
-        languageSelectionButton.click();
+    public SelenideElement getPasswordInput(String password) {
+        return $(By.xpath(String.format("//input[@addressStreet='%s']", password)));
     }
 
-    public void emailInputPositive() {
-        emailInput.setValue("emailTest@gmail.com");
+    public SelenideElement getPinInput(int pin) {
+        return $(By.xpath(String.format("//input[@name='pin']", pin)));
     }
 
-    public void passwordInputPositive() {
-        passwordInput.setValue("passwordTest1");
+    public SelenideElement getTitleInput(String title) {
+        return $(By.xpath(String.format("//option[@value='%s']", title)));
     }
 
-    public void pinInputPositive() {
-        pinInput.setValue("2343");
+    public SelenideElement getFirstNameInput() {
+        return $(By.xpath("//input[@name='firstName']"));
     }
 
-    public void titleInputSelect() {
-        titleInput.click();
+    public SelenideElement getLastNameInput() {
+        return $(By.xpath(String.format("//input[@name='lastName']")));
     }
 
-    public void firstNameInput(String firstName) {
-        firstNameInput.sendKeys(firstName);
+    //TODO  как указать дату явно?
+    public SelenideElement getBirthDateDaySelect(int birdDate) {
+        return $(By.xpath(String.format("//select[@id = 'camelot-select-birth-date-day']/option[15]", birdDate)));
     }
 
-    public void lastNameInput(String lastName) {
-        lastNameInput.sendKeys(lastName);
+    public SelenideElement getBirthDateMonthSelect(String birthMonth) {
+        return $(By.xpath(String.format("//option[contains(text(),'%s')]", birthMonth)));
     }
 
-    public void birthDateDaySelect() {
-        birthDateDaySelect.click();
-
+    //TODO  как указать дату явно?
+    public SelenideElement getBirthDateYearSelect(int birthYear) {
+        return $(By.xpath(String.format("//select[@id='camelot-select-birth-date-year']/option[15]", birthYear)));
     }
 
-    public void birthDateMonthSelect() {
-        birthDateMonthSelect.click();
+    public SelenideElement getBirthPlaceSelect() {
+        return $(By.xpath("//input[@name='birthPlace']"));
     }
 
-    public void birthYearSelect() {
-        birthDateYearSelect.click();
+    public SelenideElement getAddressStreetInput() {
+        return $(By.xpath("//input[@name='addressStreet']"));
     }
 
-    public void birthPlaceSelect() {
-        birthPlaceSelect.sendKeys("Deutschland");
+    public SelenideElement getAddressAdditionalStreetInput() {
+        return $(By.xpath("//input[@name='addressAdditionalStreet']"));
     }
 
-    public void addressStreetInput() {
-        addressStreetInput.sendKeys("Gartenstr,  39");
+    public SelenideElement getAddressZipCodeInput() {
+        return $(By.xpath("//input[@name='addressZipCode']"));
     }
 
-    public void setAddressAdditionalStreetInput() {
-        addressAdditionalStreetInput.sendKeys("Gartenplatz 3");
+    public SelenideElement getAddressCityInput() {
+        return $(By.xpath("//input[@name='addressCity']"));
     }
 
-    public void addressZipCodeInput() {
-        addressZipCodeInput.sendKeys("13355");
+    //TODO  как указать код явно?
+    public SelenideElement getCountryCodInput(int countryCod) {
+        return $(By.xpath(String.format("//option[contains(text(),'+34')]", countryCod)));
     }
 
-    public void addressCityInput() {
-        addressCityInput.sendKeys("Berlin");
+    public SelenideElement getMobilePhoneInput() {
+        return $(By.xpath("//input[@name='mobilePhone']"));
     }
 
-    public void countryCodInput() {
-        countryCodInput.click();
-    }
-
-    public void mobilePhoneInput() {
-        mobilePhoneInput.sendKeys("65675776767");
-    }
-
-    public void promotionCodeInput() {
-        promotionCodeInput.sendKeys("6767676767676767");
+    public SelenideElement getPromotionCodeInput() {
+        return $(By.xpath("//input[@name='promotionCode']"));
     }
 }
