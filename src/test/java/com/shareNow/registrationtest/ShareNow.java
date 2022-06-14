@@ -7,6 +7,12 @@ import org.openqa.selenium.By;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.util.Properties;
+
 import static com.codeborne.selenide.Selenide.*;
 
 public class ShareNow {
@@ -16,16 +22,28 @@ public class ShareNow {
     HomePage homePage = new HomePage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
+    //путь к нашему файлу конфигураций
+    public static final String PATH_TO_PROPERTIES = "src/main/resources/config.properties";
+
     //TODO Before EACH
-    //TODO как в TESTNG создать конфигурационный файл
-    //TODO как переменную из config передать в код
 
     @BeforeTest
-    public void setUp() {
-        open("https://www.int.share-now.com/");
+    public void setUp() throws IOException {
+
+        //инициализируем специальный объект Properties
+        //типа Hashtable для удобной работы с данными
+        Properties prop = new Properties();
+
+        FileInputStream fileInputStream=new FileInputStream(PATH_TO_PROPERTIES);
+
+        //обращаемся к файлу и получаем данные
+        prop.load(fileInputStream);
+
+        String URL = prop.getProperty("baseURL");
+
+        open(URL);
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
     }
-
 
     @Test
     public void registrationPositiveTest() {
