@@ -4,12 +4,12 @@ import com.codeborne.selenide.Configuration;
 import com.shareNow.pages.HomePage;
 import com.shareNow.pages.RegistrationFormPage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.edge.EdgeDriver;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
-import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Properties;
 
@@ -22,26 +22,22 @@ public class ShareNow {
     HomePage homePage = new HomePage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
 
-    //путь к нашему файлу конфигураций
-    public static final String PATH_TO_PROPERTIES = "src/main/resources/config.properties";
+    public static final String CONFIG_PROPERTIES = "src/main/resources/config.properties";
 
     //TODO Before EACH
 
     @BeforeTest
     public void setUp() throws IOException {
 
-        //инициализируем специальный объект Properties
-        //типа Hashtable для удобной работы с данными
+
+
         Properties prop = new Properties();
-
-        FileInputStream fileInputStream=new FileInputStream(PATH_TO_PROPERTIES);
-
-        //обращаемся к файлу и получаем данные
+        FileInputStream fileInputStream=new FileInputStream(CONFIG_PROPERTIES);
         prop.load(fileInputStream);
-
         String URL = prop.getProperty("baseURL");
-
+        Configuration.browser = ("edge");
         open(URL);
+
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
     }
 
