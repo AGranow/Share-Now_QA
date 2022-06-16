@@ -43,18 +43,16 @@ public class RegistrationFormPage {
         return $(By.xpath(String.format("//input[@name='lastName']")));
     }
 
-    //TODO  как указать дату явно?
     public SelenideElement getBirthDateDaySelect(int birdDate) {
-        return $(By.xpath(String.format("//select[@id = 'camelot-select-birth-date-day']/option[15]", birdDate)));
+        return $(By.xpath(String.format("//select[@id = 'camelot-select-birth-date-day']/option[%d]", birdDate)));
     }
 
     public SelenideElement getBirthDateMonthSelect(String birthMonth) {
         return $(By.xpath(String.format("//option[contains(text(),'%s')]", birthMonth)));
     }
 
-    //TODO  как указать дату явно?
     public SelenideElement getBirthDateYearSelect(int birthYear) {
-        return $(By.xpath(String.format("//select[@id='camelot-select-birth-date-year']/option[15]", birthYear)));
+        return $(By.xpath(String.format("//select[@id='camelot-select-birth-date-year']/option[%d]", birthYear)));
     }
 
     public SelenideElement getBirthPlaceSelect() {
@@ -77,9 +75,8 @@ public class RegistrationFormPage {
         return $(By.xpath("//input[@name='addressCity']"));
     }
 
-    //TODO  как указать код явно?
     public SelenideElement getCountryCodInput(int countryCod) {
-        return $(By.xpath(String.format("//option[contains(text(),'+34')]", countryCod)));
+        return $(By.xpath(String.format("//option[contains(text(),'%d')]", countryCod)));
     }
 
     public SelenideElement getMobilePhoneInput() {

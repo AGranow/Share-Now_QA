@@ -4,8 +4,7 @@ import com.codeborne.selenide.Configuration;
 import com.shareNow.pages.HomePage;
 import com.shareNow.pages.RegistrationFormPage;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.edge.EdgeDriver;
+import org.testng.annotations.BeforeSuite;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
@@ -14,30 +13,26 @@ import java.io.IOException;
 import java.util.Properties;
 
 import static com.codeborne.selenide.Selenide.*;
+import static io.netty.handler.codec.rtsp.RtspHeaders.Values.URL;
 
 public class ShareNow {
 
-    // TODO как выбрать браузер ?
-
     HomePage homePage = new HomePage();
     RegistrationFormPage registrationFormPage = new RegistrationFormPage();
-
+    Properties prop = new Properties();
     public static final String CONFIG_PROPERTIES = "src/main/resources/config.properties";
 
-    //TODO Before EACH
+    //TODO Заполнить BeforeSuite
+    @BeforeSuite
+
 
     @BeforeTest
     public void setUp() throws IOException {
-
-
-
-        Properties prop = new Properties();
-        FileInputStream fileInputStream=new FileInputStream(CONFIG_PROPERTIES);
-        prop.load(fileInputStream);
-        String URL = prop.getProperty("baseURL");
-        Configuration.browser = ("edge");
+        FileInputStream configFile = new FileInputStream(CONFIG_PROPERTIES);
+        prop.load(configFile);
+        Configuration.baseUrl = prop.getProperty("baseURL");
+        Configuration.browser = ("google"); // выбор браузера
         open(URL);
-
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
     }
 
@@ -64,11 +59,8 @@ public class ShareNow {
         registrationFormPage.getAddressZipCodeInput().sendKeys("13346");
         registrationFormPage.getAddressCityInput().sendKeys("Berlin");
         registrationFormPage.getCountryCodInput(+34).click();
-        registrationFormPage.getMobilePhoneInput().sendKeys("657438363637");;
+        registrationFormPage.getMobilePhoneInput().sendKeys("657438363637");
         registrationFormPage.getPromotionCodeInput().sendKeys("45463473");
-
-
-
 
 
         $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(0);
