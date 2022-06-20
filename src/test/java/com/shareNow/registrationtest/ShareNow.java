@@ -1,5 +1,6 @@
 package com.shareNow.registrationtest;
 
+import com.codeborne.selenide.ClickOptions;
 import com.codeborne.selenide.Configuration;
 import com.shareNow.pages.HomePage;
 import com.shareNow.pages.RegistrationFormPage;
@@ -12,8 +13,10 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.Properties;
 
-import static com.codeborne.selenide.Selenide.*;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.open;
 import static io.netty.handler.codec.rtsp.RtspHeaders.Values.URL;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class ShareNow {
 
@@ -23,6 +26,7 @@ public class ShareNow {
     public static final String CONFIG_PROPERTIES = "src/main/resources/config.properties";
 
     //TODO Заполнить BeforeSuite
+    //TODO Выполнить ещё пару тестов
     @BeforeSuite
 
 
@@ -31,7 +35,7 @@ public class ShareNow {
         FileInputStream configFile = new FileInputStream(CONFIG_PROPERTIES);
         prop.load(configFile);
         Configuration.baseUrl = prop.getProperty("baseURL");
-        Configuration.browser = ("google"); // выбор браузера
+        //   Configuration.browser = ("edge"); // выбор браузера
         open(URL);
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
     }
@@ -45,8 +49,9 @@ public class ShareNow {
         registrationFormPage.getCountrySelectionButton("DE").click();
         registrationFormPage.getCitySelectionButton("Ulm").click();
         registrationFormPage.getLanguageSelectionButton("Deutsch").click();
-        registrationFormPage.getEmailInput("emailTest@gmail.com");
-        registrationFormPage.getPasswordInput("passwordTest1");
+        registrationFormPage.getEmailInput().sendKeys("emailTest5@gmail.com");
+        registrationFormPage.getPasswordInput().sendKeys("passwordTest5");
+        registrationFormPage.getPinInput().sendKeys("6775");
         registrationFormPage.getTitleInput("HERR").click();
         registrationFormPage.getFirstNameInput().sendKeys("Jonn");
         registrationFormPage.getLastNameInput().sendKeys("Smitt");
@@ -58,16 +63,16 @@ public class ShareNow {
         registrationFormPage.getAddressAdditionalStreetInput().sendKeys("Gartenplatz 2");
         registrationFormPage.getAddressZipCodeInput().sendKeys("13346");
         registrationFormPage.getAddressCityInput().sendKeys("Berlin");
-        registrationFormPage.getCountryCodInput(+34).click();
-        registrationFormPage.getMobilePhoneInput().sendKeys("657438363637");
-        registrationFormPage.getPromotionCodeInput().sendKeys("45463473");
+        registrationFormPage.getCountryCodInput(+49).click();
+        registrationFormPage.getMobilePhoneInput().sendKeys("17641763468");
+        //   registrationFormPage.getPromotionCodeInput().sendKeys("45463473567987564357");
 
 
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(0);
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(1);
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(2);
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(3);
+        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(0).click(ClickOptions.usingJavaScript());
+        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(1).click(ClickOptions.usingJavaScript());
+        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(2).click(ClickOptions.usingJavaScript());
+        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(3).click(ClickOptions.usingJavaScript());
 
-        $(By.cssSelector("//button[@id='registration-save-button']"));
+        $(By.xpath("//button[@id='registration-save-button']")).click(ClickOptions.usingJavaScript());
     }
 }

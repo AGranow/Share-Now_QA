@@ -19,16 +19,16 @@ public class RegistrationFormPage {
         return $(By.xpath(String.format("//option[contains(text(),'%s')]", language)));
     }
 
-    public SelenideElement getEmailInput(String email) {
-        return $(By.xpath(String.format("//input[@name='email']", email)));
+    public SelenideElement getEmailInput() {
+        return $(By.xpath("//input[@name='email']"));
     }
 
-    public SelenideElement getPasswordInput(String password) {
-        return $(By.xpath(String.format("//input[@addressStreet='%s']", password)));
+    public SelenideElement getPasswordInput() {
+        return $(By.xpath("//input[@name='password']"));
     }
 
-    public SelenideElement getPinInput(int pin) {
-        return $(By.xpath(String.format("//input[@name='pin']", pin)));
+    public SelenideElement getPinInput() {
+        return $(By.xpath(String.format("//input[@name='pin']")));
     }
 
     public SelenideElement getTitleInput(String title) {
