@@ -36,7 +36,7 @@ public class ShareNow {
         prop.load(configFile);
         Configuration.baseUrl = prop.getProperty("baseURL");
         //   Configuration.browser = ("edge"); // выбор браузера
-        open(URL);
+      //  open(URL);
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
     }
 
@@ -51,6 +51,7 @@ public class ShareNow {
         registrationFormPage.getLanguageSelectionButton("Deutsch").click();
         registrationFormPage.getEmailInput().sendKeys("emailTest5@gmail.com");
         registrationFormPage.getPasswordInput().sendKeys("passwordTest5");
+        registrationFormPage.getPasswordInput().sendKeys(creatingEmail());
         registrationFormPage.getPinInput().sendKeys("6775");
         registrationFormPage.getTitleInput("HERR").click();
         registrationFormPage.getFirstNameInput().sendKeys("Jonn");
@@ -74,5 +75,12 @@ public class ShareNow {
         $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(3).click(ClickOptions.usingJavaScript());
 
         $(By.xpath("//button[@id='registration-save-button']")).click(ClickOptions.usingJavaScript());
+    }
+
+
+    static String creatingEmail (){
+        int pass=0;
+        pass=+1;
+        return "jj";
     }
 }
