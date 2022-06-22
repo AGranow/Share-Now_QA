@@ -27,7 +27,6 @@ public class ShareNowRegitrationTest {
 
     //TODO Заполнить BeforeSuite
     //TODO Выполнить ещё пару тестов
-    // TODO Facker
 
 
     @BeforeSuite
@@ -39,7 +38,6 @@ public class ShareNowRegitrationTest {
         FileInputStream configFile = new FileInputStream(CONFIG_PROPERTIES);
         prop.load(configFile);
         Configuration.baseUrl = prop.getProperty("baseURL");
-        Configuration.timeout = 10000;
         //   Configuration.browser = ("edge"); // выбор браузера
         open(URL);
         Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
@@ -55,7 +53,7 @@ public class ShareNowRegitrationTest {
 
         registrationFormPage.getCountrySelectionButton("DE").click();
         registrationFormPage.getCitySelectionButton("Ulm").click();
-        webdriver().shouldNotHave(url("https://www.int.share-now.com/de/en/registration/personal-data/"));
+        webdriver().shouldHave(url("https://www.int.share-now.com/de/en/ulm/registration/personal-data/"));
         registrationFormPage.getLanguageSelectionButton("Deutsch").click();
         registrationFormPage.getEmailInput().sendKeys(FakerAssistant.setFakerEmail());
         registrationFormPage.getPasswordInput().sendKeys("passwordTest7");
@@ -73,7 +71,7 @@ public class ShareNowRegitrationTest {
         registrationFormPage.getAddressZipCodeInput().sendKeys("13346");
         registrationFormPage.getAddressCityInput().sendKeys("Berlin");
         registrationFormPage.getCountryCodInput(+49).click();
-        registrationFormPage.getMobilePhoneInput().sendKeys("17641763470");
+        registrationFormPage.getMobilePhoneInput().sendKeys(FakerAssistant.setFakerPhoneNumber());
         //   registrationFormPage.getPromotionCodeInput().sendKeys("45463473567987564357");
 
 
