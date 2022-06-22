@@ -8,6 +8,7 @@
         <outputRelativeToContentRoot value="true" />
         <module name="Share-Now_QA" />
         <module name="Share-now_QA" />
+        <module name="untitled" />
       </profile>
     </annotationProcessing>
   </component>

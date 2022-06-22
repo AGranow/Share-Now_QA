@@ -31,7 +31,7 @@ public class RegistrationFormPage {
         return $(By.xpath(String.format("//input[@name='pin']")));
     }
 
-    public SelenideElement getTitleInput(String title) {
+    public SelenideElement getTitleInput(String title) { //TODO Нужно ли вводить Title явно
         return $(By.xpath(String.format("//option[@value='%s']", title)));
     }
 
