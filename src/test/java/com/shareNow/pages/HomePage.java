@@ -6,10 +6,7 @@ import org.openqa.selenium.By;
 import static com.codeborne.selenide.Selenide.$;
 
 public class HomePage {
-
- private SelenideElement regButton = $(By.id("reggie-link-register-now"));
-
- public void regButtonClick(){
-     regButton.click();
- }
+    public SelenideElement getRegButton() {
+        return $(By.id("reggie-link-register-now"));
+    }
 }

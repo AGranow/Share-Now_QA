@@ -1,9 +1,11 @@
 package com.shareNow.pages;
 
+import com.codeborne.selenide.ElementsCollection;
 import com.codeborne.selenide.SelenideElement;
 import org.openqa.selenium.By;
 
 import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.$$;
 
 public class RegistrationFormPage {
 
@@ -28,10 +30,10 @@ public class RegistrationFormPage {
     }
 
     public SelenideElement getPinInput() {
-        return $(By.xpath(String.format("//input[@name='pin']")));
+        return $(By.xpath("//input[@name='pin']"));
     }
 
-    public SelenideElement getTitleInput(String title) { //TODO Нужно ли вводить Title явно
+    public SelenideElement getTitleInput(String title) {
         return $(By.xpath(String.format("//option[@value='%s']", title)));
     }
 
@@ -40,7 +42,7 @@ public class RegistrationFormPage {
     }
 
     public SelenideElement getLastNameInput() {
-        return $(By.xpath(String.format("//input[@name='lastName']")));
+        return $(By.xpath("//input[@name='lastName']"));
     }
 
     public SelenideElement getBirthDateDaySelect(int birdDate) {
@@ -83,7 +85,11 @@ public class RegistrationFormPage {
         return $(By.xpath("//input[@name='mobilePhone']"));
     }
 
-    public SelenideElement getPromotionCodeInput() {
-        return $(By.xpath("//input[@name='promotionCode']"));
+    public SelenideElement getRegistrationSaveButton() {
+        return $(By.xpath("//button[@id='registration-save-button']"));
+    }
+
+    public ElementsCollection getChekBox() {
+        return $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]"));
     }
 }

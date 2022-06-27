@@ -1,6 +1,7 @@
 package com.shareNow.registrationtest;
 
 import com.codeborne.selenide.ClickOptions;
+import com.codeborne.selenide.Condition;
 import com.codeborne.selenide.Configuration;
 import com.shareNow.assistant.FakerAssistant;
 import com.shareNow.pages.HomePage;
@@ -32,32 +33,25 @@ public class ShareNowRegitrationTest {
     @BeforeSuite
 
 
-
     @BeforeTest
     public void setUp() throws IOException {
         FileInputStream configFile = new FileInputStream(CONFIG_PROPERTIES);
         prop.load(configFile);
         Configuration.baseUrl = prop.getProperty("baseURL");
-        //   Configuration.browser = ("edge"); // выбор браузера
+        //   Configuration.browser = ("edge"); // выборирает браузер
         open(URL);
-        Configuration.holdBrowserOpen = true;  //  не закрывать браузер после выполнения теста
+        Configuration.holdBrowserOpen = true;  //  оставляет браузер открытым после выполнения теста
     }
 
     @Test
     public void registrationPositiveTest() {
-
-
-
-
-        homePage.regButtonClick();
-
+        homePage.getRegButton().click();
         registrationFormPage.getCountrySelectionButton("DE").click();
         registrationFormPage.getCitySelectionButton("Ulm").click();
         webdriver().shouldHave(url("https://www.int.share-now.com/de/en/ulm/registration/personal-data/"));
         registrationFormPage.getLanguageSelectionButton("Deutsch").click();
         registrationFormPage.getEmailInput().sendKeys(FakerAssistant.setFakerEmail());
         registrationFormPage.getPasswordInput().sendKeys("passwordTest7");
-        //  registrationFormPage.getPasswordInput().sendKeys(creatingEmail());
         registrationFormPage.getPinInput().sendKeys("6775");
         registrationFormPage.getTitleInput("HERR").click();
         registrationFormPage.getFirstNameInput().sendKeys("Jonn");
@@ -72,14 +66,52 @@ public class ShareNowRegitrationTest {
         registrationFormPage.getAddressCityInput().sendKeys("Berlin");
         registrationFormPage.getCountryCodInput(+49).click();
         registrationFormPage.getMobilePhoneInput().sendKeys(FakerAssistant.setFakerPhoneNumber());
-        //   registrationFormPage.getPromotionCodeInput().sendKeys("45463473567987564357");
 
+        registrationFormPage.getChekBox().get(0).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(1).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(2).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(3).click(ClickOptions.usingJavaScript());
 
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(0).click(ClickOptions.usingJavaScript());
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(1).click(ClickOptions.usingJavaScript());
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(2).click(ClickOptions.usingJavaScript());
-        $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]")).get(3).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getRegistrationSaveButton().click(ClickOptions.usingJavaScript());
 
-        $(By.xpath("//button[@id='registration-save-button']")).click(ClickOptions.usingJavaScript());
+        webdriver().shouldHave(url("https://www.int.share-now.com/de/en/ulm/registration/payment/"));
+
+        $(By.xpath("//button[@data-test-id = 'save-payment-form']")).should(Condition.visible);
     }
+
+    @Test
+    public void emailNotCorrectFormatRegistrationNegativeTest() {
+        homePage.getRegButton().click();
+        registrationFormPage.getCountrySelectionButton("DE").click();
+        registrationFormPage.getCitySelectionButton("Ulm").click();
+        webdriver().shouldHave(url("https://www.int.share-now.com/de/en/ulm/registration/personal-data/"));
+        registrationFormPage.getLanguageSelectionButton("Deutsch").click();
+        registrationFormPage.getEmailInput().sendKeys(prop.getProperty("emailNotCorrectFormat"));
+
+        registrationFormPage.getPasswordInput().sendKeys("passwordTest7");
+        registrationFormPage.getPinInput().sendKeys("6775");
+        registrationFormPage.getTitleInput("HERR").click();
+        registrationFormPage.getFirstNameInput().sendKeys("Jonn");
+        registrationFormPage.getLastNameInput().sendKeys("Smitt");
+        registrationFormPage.getBirthDateDaySelect(18).click();
+        registrationFormPage.getBirthDateMonthSelect("March").click();
+        registrationFormPage.getBirthDateYearSelect(25).click();
+        registrationFormPage.getBirthPlaceSelect().sendKeys("Germany");
+        registrationFormPage.getAddressStreetInput().sendKeys("Gartenstr,39");
+        registrationFormPage.getAddressAdditionalStreetInput().sendKeys("Gartenplatz 2");
+        registrationFormPage.getAddressZipCodeInput().sendKeys("13346");
+        registrationFormPage.getAddressCityInput().sendKeys("Berlin");
+        registrationFormPage.getCountryCodInput(+49).click();
+        registrationFormPage.getMobilePhoneInput().sendKeys(FakerAssistant.setFakerPhoneNumber());
+
+        registrationFormPage.getChekBox().get(0).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(1).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(2).click(ClickOptions.usingJavaScript());
+        registrationFormPage.getChekBox().get(3).click(ClickOptions.usingJavaScript());
+
+        registrationFormPage.getRegistrationSaveButton().click(ClickOptions.usingJavaScript());
+        registrationFormPage.getRegistrationSaveButton().should(Condition.visible);
+    }
+
+
 }
