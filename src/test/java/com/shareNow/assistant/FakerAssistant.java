@@ -7,7 +7,6 @@ public class FakerAssistant {
 
     static Faker faker = new Faker();
     public static String setFakerEmail(){
-
         String email = faker.internet().emailAddress();
         return email;
     }
@@ -16,10 +15,12 @@ public class FakerAssistant {
         String phoneNumber = faker.numerify("############");;
         return phoneNumber;
     }
-
-    public static void main(String[] args) {
-        System.out.println(setFakerPhoneNumber());
+    public static String setFakerPassword(){
+        String phoneNumber = faker.internet().password();;
+        return phoneNumber;
     }
 
-
+    public static void main(String[] args) {
+        System.out.println(setFakerPassword());
+    }
 }

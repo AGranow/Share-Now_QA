@@ -89,7 +89,9 @@ public class RegistrationFormPage {
         return $(By.xpath("//button[@id='registration-save-button']"));
     }
 
-    public ElementsCollection getChekBox() {
+    public ElementsCollection getCheckBox() {
         return $$(By.xpath("//input[contains(@id, 'camelot-checkbox')]"));
     }
+
+
 }
